@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin id="cordova-plugin-alibaichuan" verstion="0.0.1">
+    <name>AliBaiChuan</name>
+    <description>AliBaiChuan Plugin</description>
+
+    <!--ios部分-->
+    <platform name="ios">
+	 <!--js-->
+    <js-module src="www/baiChuan.js">
+        <clobbers target="AliBaiChuan" />
+    </js-module>
+        <config-file target="config.xml" parent="/*">
+            <feature name="CDVBaiChuan">
+                <param name="ios-package" value="CDVBaiChuan" />
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+            </dict>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleTypeRole</key>
+                    <string>Editor</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>baichuan</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+        <framework src="src/ios/libs/ALBBAppLink.framework" custom="true" embed="true" />
+        <source-file src="src/ios/CDVBaiChuan.h"/>
+        <source-file src="src/ios/CDVBaiChuan.m"/>
+    </platform>
+	
+   <platform name="android">
+    <js-module src="www/baiChuan.js">
+        <clobbers target="AliBaiChuan"/>
+    </js-module>
+	 <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="CDVBaiChuan">
+                <param name="android-package" value="com.android.AliBaiChuan"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/AliBaiChuan.java" target-dir="src/android/" />
+		 <source-file src="src/android/libs/BaichuanApplinkSDK.jar" target-dir="libs"/>
+		  <source-file src="src/android/libs/BaichuanMiniKernel.jar" target-dir="libs"/>
+       
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+			 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+        </config-file>
+		
+	
+    </platform>
+</plugin>
